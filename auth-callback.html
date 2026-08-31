@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmando conta | To Live Is To Die</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="header scrolled">
+    <a href="index.html" class="logo logo-image-link" aria-label="Voltar ao início">
+        <img src="assets/images/tlitd-logo-header.webp" alt="To Live Is To Die">
+    </a>
+</header>
+
+<main class="auth-callback-page">
+    <section class="auth-callback-card">
+        <p class="eyebrow">CONTA TLITD</p>
+        <h1>CONFIRMANDO...</h1>
+        <p id="callbackMessage">Validando seu email e preparando sua sessão.</p>
+        <div class="callback-loader" aria-hidden="true"></div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script>
+(async () => {
+    const message = document.getElementById("callbackMessage");
+
+    // O cliente do Supabase lê automaticamente o token retornado na URL.
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error) {
+        message.textContent = "Não foi possível concluir a confirmação. Volte à página de conta e tente entrar novamente.";
+        return;
+    }
+
+    if (data.session?.user) {
+        message.textContent = "Email confirmado. Redirecionando para sua conta...";
+        setTimeout(() => {
+            window.location.replace(`${ACCOUNT_URL}?confirmed=1`);
+        }, 700);
+        return;
+    }
+
+    // Em alguns navegadores o evento de autenticação chega alguns instantes depois.
+    const timeout = setTimeout(() => {
+        message.textContent = "Email confirmado. Indo para a página de conta...";
+        window.location.replace(ACCOUNT_URL);
+    }, 2200);
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+        if (session?.user) {
+            clearTimeout(timeout);
+            window.location.replace(`${ACCOUNT_URL}?confirmed=1`);
+        }
+    });
+})();
+</script>
+</body>
+</html>

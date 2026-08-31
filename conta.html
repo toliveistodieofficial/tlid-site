@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conta | To Live Is To Die</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="header scrolled">
+    <a href="index.html" class="logo logo-image-link" aria-label="Voltar ao início">
+        <img src="assets/images/tlitd-logo-header.webp" alt="To Live Is To Die">
+    </a>
+    <nav class="navigation">
+        <a href="index.html">INÍCIO</a>
+        <a href="wiki.html">WIKI</a>
+        <a href="loja.html">LOJA</a>
+        <a href="conta.html">CONTA</a>
+    </nav>
+</header>
+
+<main class="account-page">
+    <section class="account-panel" id="authPanel">
+        <div class="account-header">
+            <p class="eyebrow">CONTA TLITD</p>
+            <h1>ACESSO</h1>
+        </div>
+
+        <div class="account-tabs">
+            <button class="account-tab active" data-tab="login" type="button">ENTRAR</button>
+            <button class="account-tab" data-tab="register" type="button">CRIAR CONTA</button>
+        </div>
+
+        <form class="account-form" id="loginForm">
+            <label for="loginEmail">EMAIL</label>
+            <input id="loginEmail" type="email" autocomplete="email" required>
+
+            <label for="loginPassword">SENHA</label>
+            <input id="loginPassword" type="password" autocomplete="current-password" required>
+
+            <button class="button primary account-submit" type="submit">ENTRAR</button>
+        </form>
+
+        <form class="account-form hidden" id="registerForm">
+            <label for="registerName">NOME</label>
+            <input id="registerName" type="text" autocomplete="name" required>
+
+            <label for="registerEmail">EMAIL</label>
+            <input id="registerEmail" type="email" autocomplete="email" required>
+
+            <label for="registerPassword">SENHA</label>
+            <input id="registerPassword" type="password" minlength="8" autocomplete="new-password" required>
+
+            <button class="button primary account-submit" type="submit">CRIAR CONTA</button>
+        </form>
+
+        <p class="auth-message" id="authMessage"></p>
+    </section>
+
+    <section class="profile-panel hidden" id="profilePanel">
+        <p class="eyebrow">CONTA CONECTADA</p>
+        <h1 id="profileName">JOGADOR</h1>
+        <p class="profile-email" id="profileEmail"></p>
+
+        <a class="profile-option" href="loja.html">
+            <small>TLITD</small><strong>MINHA BIBLIOTECA</strong><span>→</span>
+        </a>
+        <a class="profile-option" href="wiki.html">
+            <small>UNIVERSO</small><strong>WIKI OFICIAL</strong><span>→</span>
+        </a>
+        <button class="button secondary" id="logoutButton" type="button">SAIR DA CONTA</button>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
